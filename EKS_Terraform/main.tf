@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-south-1"
+  region = "ca-central-1"
 }
 
 resource "aws_vpc" "devopsshack_vpc" {
@@ -14,7 +14,7 @@ resource "aws_subnet" "devopsshack_subnet" {
   count = 2
   vpc_id                  = aws_vpc.devopsshack_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.devopsshack_vpc.cidr_block, 8, count.index)
-  availability_zone       = element(["ap-south-1a", "ap-south-1b"], count.index)
+  availability_zone       = element(["ca-central-1", "ca-west-1"], count.index)
   map_public_ip_on_launch = true
 
   tags = {
@@ -173,3 +173,4 @@ resource "aws_iam_role_policy_attachment" "devopsshack_node_group_registry_polic
   role       = aws_iam_role.devopsshack_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
+
